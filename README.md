@@ -66,7 +66,17 @@
 <h3 align="left">💰 Monetization</h3>
 I'm experienced in using mobile monetization platforms and ad networks including:
 <p align="left">
-  <img src="https://img.shields.io/badge/AdMob-ffffff?style=for-the-badge&logo=googleadmob&logoColor=ea4335" alt="AdMob"/>
-  <img src="https://img.shields.io/badge/AppLovin-ffffff?style=for-the-badge&logo=appLovin&logoColor=0D96F6" alt="AppLovin"/>
-  <img src="https://img.shields.io/badge/IronSource-ffffff?style=for-the-badge&logoColor=white&logo=ironsource" alt="IronSource"/>
+  <a href="https://ads.google.com/" target="_blank" rel="noreferrer">
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/google/google-original.svg" alt="AdMob" width="40" height="40"/>
+  </a>
+   <a href="https://admob.google.com/" target="_blank" rel="noreferrer">
+    <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/logo_admob_800px_logo_admob.width-500.format-webp.webp" alt="AdMob" width="40" height="40"/>
+  </a>
+  <a href="https://www.applovin.com/" target="_blank" rel="noreferrer">
+    <img src="https://www.applovin.com/wp-content/uploads/2021/05/AppLovin_Logo_Vert_Blue_2019_RGB-01.png" alt="AppLovin" width="40" height="40"/>
+  </a>
+  <a href="https://www.is.com/" target="_blank" rel="noreferrer">
+    <img src="https://avatars.githubusercontent.com/u/77577308?s=280&v=4" alt="IronSource" width="40" height="40"/>
+  </a>
 </p>
+
