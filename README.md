@@ -1,81 +1,35 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Queng Studio</title>
-
-  <!-- CSS -->
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-    }
-
-    h1, h3 {
-      text-align: center;
-    }
-
-    .app-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .app-card {
-      width: 320px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-
-    .app-preview {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .app-info {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      gap: 10px;
-    }
-
-    .app-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-
-    .app-title {
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .app-studio {
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
-</head>
 <h1 align="center">Hi 👋, I'm Quang</h1>
 <h3 align="center">A passionate game developer from Vietnam</h3>
-<h3 align="left">My Games:</h3>
-<div class="app-card">
-  <img class="app-preview" src="https://play-lh.googleusercontent.com/RZnSkz3o07tZYRUT5u89sSpYQY0bXi4AxWs_2aU4ixfWZqw9xtEDIuEnKSBDq0ey-eo=w416-h235-rw" alt="Chibs Merge Preview">
-  <div class="app-info">
-    <img class="app-icon" src="https://play-lh.googleusercontent.com/RT4a1tFu4y__aIzqYBS7zWuj6n1fujtpdz84cf2ZZnoFyiKnR1ZHFQ1lSPcI7QyNhO0=s64-rw" alt="Chibs Merge Icon">
-    <div>
-      <div class="app-title">Chibs Merge</div>
-      <div class="app-studio">Queng Studio</div>
-    </div>
-  </div>
-</div>
+<h3 align="left">🎮 My Games</h3>
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://play-lh.googleusercontent.com/RZnSkz3o07tZYRUT5u89sSpYQY0bXi4AxWs_2aU4ixfWZqw9xtEDIuEnKSBDq0ey-eo=w416-h235-rw" width="300"/><br/>
+      <img src="https://play-lh.googleusercontent.com/RT4a1tFu4y__aIzqYBS7zWuj6n1fujtpdz84cf2ZZnoFyiKnR1ZHFQ1lSPcI7QyNhO0=s64-rw" width="40"/>  
+      <br/><b>Chibs Merge</b><br/>Queng Studio
+    </td>
+    <td align="center">
+      <img src="https://play-lh.googleusercontent.com/FZlFzP7OcE9yzPOEVnjCzctphb2Vd-8KP_JEEGNDmrri3xoLSPiHO0jxv8gtwYam8wA=w416-h235-rw" width="300"/><br/>
+      <img src="https://play-lh.googleusercontent.com/4CCtNGK1oqvkzKpJ4npl8XG9D34SRRcqP2ysdMbQ6pq5HTo6XujUD8XZNBoeQnZGTzQ=s64-rw" width="40"/>  
+      <br/><b>Wizard Reborn</b><br/>Queng Studio
+    </td>
+    <td align="center">
+      <img src="https://play-lh.googleusercontent.com/go7OoiU6lnoSgcqDYhXw11Iw6cWrplspIzEwwo8ZhS604L04pbqAWJKJf_pYep9WbpQf=w416-h235-rw" width="300"/><br/>
+      <img src="https://play-lh.googleusercontent.com/woIDSohLxJTcCXcPFsJvyefVM2ZQreujPycgSeBu1ysFgsANU0Rc7GuwxCgIGLuNX00=s64-rw" width="40"/>  
+      <br/><b>Don't Let Ball Fall</b><br/>Queng Studio
+    </td>
+  </tr>
+</table>
+
 <h3 align="left">Connect with me:</h3>
+<p align="left">
+  <a href="https://www.facebook.com/quenggamestudio" target="_blank">
+    <img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Facebook"/>
+  </a>
+  <a href="https://play.google.com/store/apps/developer?id=Queng+Studio&&gl=us" target="_blank">
+    <img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play"/>
+  </a>
+</p>
 <p align="left">
 </p>
 
