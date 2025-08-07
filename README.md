@@ -70,7 +70,7 @@ I'm experienced in using mobile monetization platforms and ad networks including
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/google/google-original.svg" alt="AdMob" width="40" height="40"/>
   </a>
    <a href="https://admob.google.com/" target="_blank" rel="noreferrer">
-    <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/logo_admob_800px_logo_admob.width-500.format-webp.webp" alt="AdMob" width="40" height="40"/>
+    <img src="https://www.vhv.rs/dpng/d/574-5747918_google-admob-hd-png-download.png" alt="AdMob" width="40" height="40"/>
   </a>
   <a href="https://www.applovin.com/" target="_blank" rel="noreferrer">
     <img src="https://www.applovin.com/wp-content/uploads/2021/05/AppLovin_Logo_Vert_Blue_2019_RGB-01.png" alt="AppLovin" width="40" height="40"/>
