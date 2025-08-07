@@ -1,6 +1,16 @@
 <h1 align="center">Hi 👋, I'm Quang</h1>
 <h3 align="center">A passionate game developer from Vietnam</h3>
-
+<h3 align="left">My Games:</h3>
+<div class="app-card">
+  <img class="app-preview" src="https://play-lh.googleusercontent.com/RZnSkz3o07tZYRUT5u89sSpYQY0bXi4AxWs_2aU4ixfWZqw9xtEDIuEnKSBDq0ey-eo=w416-h235-rw" alt="Chibs Merge Preview">
+  <div class="app-info">
+    <img class="app-icon" src="https://play-lh.googleusercontent.com/RT4a1tFu4y__aIzqYBS7zWuj6n1fujtpdz84cf2ZZnoFyiKnR1ZHFQ1lSPcI7QyNhO0=s64-rw" alt="Chibs Merge Icon">
+    <div>
+      <div class="app-title">Chibs Merge</div>
+      <div class="app-studio">Queng Studio</div>
+    </div>
+  </div>
+</div>
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 </p>
