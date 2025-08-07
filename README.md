@@ -1,3 +1,67 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Queng Studio</title>
+
+  <!-- CSS -->
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1, h3 {
+      text-align: center;
+    }
+
+    .app-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .app-card {
+      width: 320px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .app-preview {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .app-info {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      gap: 10px;
+    }
+
+    .app-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .app-title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .app-studio {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
 <h1 align="center">Hi 👋, I'm Quang</h1>
 <h3 align="center">A passionate game developer from Vietnam</h3>
 <h3 align="left">My Games:</h3>
