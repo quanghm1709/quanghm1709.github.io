@@ -44,6 +44,7 @@
 
 <h3 align="left">🎮 Web game </h3>
 <a href="./tap_jump/">Play Tap Jump!</a>
+<p align="left">
 <a href="./tank_shooter/">Play Tank Shooter!</a>
 
 <h3 align="left">Connect with me:</h3>
