@@ -42,6 +42,10 @@
   </tr>
 </table>
 
+<h3 align="left">🎮 Web game </h3>
+<a href="./tap_jump/">Play Tap Jump!</a>
+<a href="./tank_shooter/">Play Tank Shooter!</a>
+
 <h3 align="left">Connect with me:</h3>
 <p align="left">
   <a href="https://www.facebook.com/quenggamestudio" target="_blank">
@@ -79,6 +83,4 @@ I'm experienced in using mobile monetization platforms and ad networks including
     <img src="https://avatars.githubusercontent.com/u/77577308?s=280&v=4" alt="IronSource" width="40" height="40"/>
   </a>
 </p>
-
-<a href="./tap_jump/">Play Tap Jump!</a>
 
