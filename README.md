@@ -80,5 +80,5 @@ I'm experienced in using mobile monetization platforms and ad networks including
   </a>
 </p>
 
-<a href="./tap_jump/">Play Flappy Bird!</a>
+<a href="./tap_jump/">Play Tap Jump!</a>
 
