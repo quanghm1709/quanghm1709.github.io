@@ -1,87 +1,86 @@
-<h1 align="center">Hi 👋, I'm Quang</h1>
-<h3 align="center">A passionate game developer from Vietnam</h3>
-<h3 align="left">🎮 My Games</h3>
-<table>
-  <tr>
-    <td align="center">
-      <img src="https://play-lh.googleusercontent.com/RZnSkz3o07tZYRUT5u89sSpYQY0bXi4AxWs_2aU4ixfWZqw9xtEDIuEnKSBDq0ey-eo=w416-h235-rw" width="300"/><br/>
-      <img src="https://play-lh.googleusercontent.com/RT4a1tFu4y__aIzqYBS7zWuj6n1fujtpdz84cf2ZZnoFyiKnR1ZHFQ1lSPcI7QyNhO0=s64-rw" width="40"/>  
-      <br/><b>Chibs Merge</b><br/>
-    </td>
-    <td align="center">
-      <img src="https://play-lh.googleusercontent.com/FZlFzP7OcE9yzPOEVnjCzctphb2Vd-8KP_JEEGNDmrri3xoLSPiHO0jxv8gtwYam8wA=w416-h235-rw" width="300"/><br/>
-      <img src="https://play-lh.googleusercontent.com/4CCtNGK1oqvkzKpJ4npl8XG9D34SRRcqP2ysdMbQ6pq5HTo6XujUD8XZNBoeQnZGTzQ=s64-rw" width="40"/>  
-      <br/><b>Wizard Reborn</b><br/>
-    </td>
-    <td align="center">
-      <img src="https://play-lh.googleusercontent.com/go7OoiU6lnoSgcqDYhXw11Iw6cWrplspIzEwwo8ZhS604L04pbqAWJKJf_pYep9WbpQf=w416-h235-rw" width="300"/><br/>
-      <img src="https://play-lh.googleusercontent.com/woIDSohLxJTcCXcPFsJvyefVM2ZQreujPycgSeBu1ysFgsANU0Rc7GuwxCgIGLuNX00=s64-rw" width="40"/>  
-      <br/><b>Don't Let Ball Fall</b><br/>
-    </td>
-  </tr>
-</table>
+# Welcome to My Portfolio
 
-<h3 align="left">🎮 Best team project <3 </h3>
-<table>
-  <tr>
-    <td align="center">
-      <img src="https://play-lh.googleusercontent.com/jZt7LM13waaFZaawgD2rlSyLiy9NsLdz3gf13wQqQjTDcXqAXrAxBA2934c5YrP1ISg=w416-h235-rw" width="300"/><br/>
-      <img src="https://play-lh.googleusercontent.com/pL_xchUwMUZijYH5FcM0eKVxcsNEtQTBR4DOijwSkBIhdc7k5XHhUVADZTDjIXo_wYbx=s64-rw" width="40"/>  
-      <br/><b>Watermelon Playground Sandbox</b><br/> ~500k Downloads
-    </td>
-    <td align="center">
-      <img src="https://play-lh.googleusercontent.com/J-XJZo7Q_Md3eZY-RhCRZS1LPU0yJRZLNCUuwzzH3DOVKAzOdk7bRZG5VM4yieV7Rg=w526-h296-rw" width="300"/><br/>
-      <img src="https://play-lh.googleusercontent.com/pVmXscZlyEMkU2oLl_YqJ8luPW7AoaXbiGgNSRt2l1YvkCtANXoMIWswS-at_VAB4Jg=s48-rw" width="40"/>  
-      <br/><b>Toilet Monster - Cameraman</b><br/> > 10k Downloads
-    </td>
-    <td align="center">
-      <img src="https://play-lh.googleusercontent.com/5_JFWAP7Qe2UuKG_ab2UbOVjCEuJSBscgaeVh3S9ZeIbQyXXQu1XJOPFDtj4O5E8HFg=w416-h235-rw" width="300"/><br/>
-      <img src="https://play-lh.googleusercontent.com/buTrW1aaXBJUhQ2Hy5Ceku0T8BU4wTFKL-amsHSEq69rBmcZ0ZP0aRYh1RES5Lh_gCg=s64-rw" width="40"/>  
-      <br/><b>Cake Maker: Cupcake Merge</b><br/> >5k Downloads
-    </td>
-  </tr>
-</table>
+## 🎨 Modern & Responsive Design
 
-<h3 align="left">🎮 Web game </h3>
-<a href="./tap_jump/">Play Tap Jump!</a>
-<p align="left">
-<a href="./tank_shooter/">Play Tank Shooter!</a>
+This is a personal portfolio website showcasing my work, skills, and projects with a modern UI/UX approach.
 
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-  <a href="https://www.facebook.com/quenggamestudio" target="_blank">
-    <img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Facebook"/>
-  </a>
-  <a href="https://play.google.com/store/apps/developer?id=Queng+Studio&&gl=us" target="_blank">
-    <img src="https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white" alt="Google Play"/>
-  </a>
-  <a href="quengstudio@gmail.com" target="_blank">
-    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"/>
-  </a>
-  <a href="tel:+84332530479" target="_blank">
-    <img src="https://img.shields.io/badge/Phone-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Phone"/>
-  </a>
-</p>
-<p align="left">
-</p>
+---
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://www.arduino.cc/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/arduino-1.svg" alt="arduino" width="40" height="40"/> </a> <a href="https://www.blender.org/" target="_blank" rel="noreferrer"> <img src="https://download.blender.org/branding/community/blender_community_badge_white.svg" alt="blender" width="40" height="40"/> </a> <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://dotnet.microsoft.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" alt="dotnet" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://golang.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://www.microsoft.com/en-us/sql-server" target="_blank" rel="noreferrer"> <img src="https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg" alt="mssql" width="40" height="40"/> </a> <a href="https://www.photoshop.com/en" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-line.svg" alt="photoshop" width="40" height="40"/> </a> <a href="https://www.sqlite.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a> <a href="https://unity.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/unity3d/unity3d-icon.svg" alt="unity" width="40" height="40"/> </a> </p>
+## 📋 Table of Contents
 
-<h3 align="left">💰 Monetization</h3>
-I'm experienced in using mobile monetization platforms and ad networks including:
-<p align="left">
-  <a href="https://ads.google.com/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/google/google-original.svg" alt="AdMob" width="40" height="40"/>
-  </a>
-   <a href="https://admob.google.com/" target="_blank" rel="noreferrer">
-    <img src="https://www.vhv.rs/dpng/d/574-5747918_google-admob-hd-png-download.png" alt="AdMob" width="40" height="40"/>
-  </a>
-  <a href="https://www.applovin.com/" target="_blank" rel="noreferrer">
-    <img src="https://www.applovin.com/wp-content/uploads/2021/05/AppLovin_Logo_Vert_Blue_2019_RGB-01.png" alt="AppLovin" width="40" height="40"/>
-  </a>
-  <a href="https://www.is.com/" target="_blank" rel="noreferrer">
-    <img src="https://avatars.githubusercontent.com/u/77577308?s=280&v=4" alt="IronSource" width="40" height="40"/>
-  </a>
-</p>
+- [About](#about)
+- [Projects](#projects)
+- [Skills](#skills)
+- [Contact](#contact)
 
+---
+
+## 👨‍💻 About
+
+Hi! I'm a passionate developer focused on creating beautiful and functional web experiences. With expertise in modern web technologies, I build scalable applications that solve real-world problems.
+
+---
+
+## 🚀 Featured Projects
+
+### Project 1: Modern Web Application
+- **Description**: A cutting-edge web application with responsive design
+- **Tech Stack**: React, Node.js, MongoDB
+- **Link**: [View Project](#)
+
+### Project 2: Mobile-First Dashboard
+- **Description**: Intuitive dashboard for data visualization
+- **Tech Stack**: Vue.js, Express, PostgreSQL
+- **Link**: [View Project](#)
+
+### Project 3: Performance-Optimized CMS
+- **Description**: Lightweight content management system
+- **Tech Stack**: Next.js, Firebase
+- **Link**: [View Project](#)
+
+---
+
+## 💡 Skills
+
+### Frontend Development
+- React.js / Vue.js / Next.js
+- Responsive Web Design
+- Modern CSS (Flexbox, Grid, Animations)
+- JavaScript (ES6+)
+
+### Backend Development
+- Node.js / Express.js
+- RESTful API Design
+- Database Design (SQL & NoSQL)
+- Authentication & Security
+
+### Tools & Technologies
+- Git & GitHub
+- Docker
+- AWS / Firebase
+- Webpack / Vite
+
+---
+
+## 📞 Get In Touch
+
+I'm always interested in hearing about new opportunities and interesting projects.
+
+- **Email**: [your-email@example.com](mailto:your-email@example.com)
+- **LinkedIn**: [linkedin.com/in/yourprofile](#)
+- **GitHub**: [github.com/quanghm1709](#)
+- **Portfolio**: [quanghm1709.github.io](https://quanghm1709.github.io)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+**Last Updated**: 2026-01-08
+
+---
+
+*Built with ❤️ using modern web technologies*
