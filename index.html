@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quang Hoang - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a2847 50%, #2d1b69 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 60px;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--text-light);
+            max-width: 800px;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #a0aec0;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Animated Background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--secondary-color), transparent);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent-color), transparent);
+            border-radius: 50%;
+            bottom: -100px;
+            left: -100px;
+            opacity: 0.2;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        /* Games Showcase Section */
+        .games-section {
+            padding: 100px 2rem;
+            background: var(--light-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-dark);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-card:hover .game-image::before {
+            left: 100%;
+        }
+
+        .game-info {
+            padding: 2rem;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .game-description {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .game-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: #e0e7ff;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .game-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .game-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 2rem;
+            background: linear-gradient(135deg, var(--dark-bg), #1a2847);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-section .section-title {
+            color: var(--text-light);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #475569;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .form-message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .form-message.success {
+            color: #10b981;
+        }
+
+        .form-message.error {
+            color: #ef4444;
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            width: 0%;
+            z-index: 2000;
+            transition: width 0.1s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(20px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Scroll Animation for Elements */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">QH</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#games">Games</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Quang Hoang</h1>
+            <p class="hero-subtitle">Game Developer & Creative Technologist</p>
+            <div class="cta-buttons">
+                <a href="#games" class="btn btn-primary">Explore My Games</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Showcase Section -->
+    <section class="games-section" id="games">
+        <h2 class="section-title scroll-animate">Featured Games</h2>
+        <div class="games-grid">
+            <div class="game-card scroll-animate">
+                <div class="game-image">🎮</div>
+                <div class="game-info">
+                    <h3 class="game-title">Puzzle Master</h3>
+                    <p class="game-description">An engaging puzzle game with challenging levels and smooth mechanics.</p>
+                    <div class="game-tags">
+                        <span class="tag">Puzzle</span>
+                        <span class="tag">HTML5</span>
+                    </div>
+                    <button class="game-btn">Play Now</button>
+                </div>
+            </div>
+
+            <div class="game-card scroll-animate">
+                <div class="game-image">🚀</div>
+                <div class="game-info">
+                    <h3 class="game-title">Space Runner</h3>
+                    <p class="game-description">Navigate through space obstacles in this fast-paced adventure game.</p>
+                    <div class="game-tags">
+                        <span class="tag">Action</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <button class="game-btn">Play Now</button>
+                </div>
+            </div>
+
+            <div class="game-card scroll-animate">
+                <div class="game-image">🏀</div>
+                <div class="game-info">
+                    <h3 class="game-title">Ball Bounce</h3>
+                    <p class="game-description">Test your reflexes with this addictive ball bouncing game.</p>
+                    <div class="game-tags">
+                        <span class="tag">Arcade</span>
+                        <span class="tag">Canvas</span>
+                    </div>
+                    <button class="game-btn">Play Now</button>
+                </div>
+            </div>
+
+            <div class="game-card scroll-animate">
+                <div class="game-image">🧩</div>
+                <div class="game-info">
+                    <h3 class="game-title">Block Stacker</h3>
+                    <p class="game-description">Stack blocks strategically to reach the top and beat your high score.</p>
+                    <div class="game-tags">
+                        <span class="tag">Strategy</span>
+                        <span class="tag">Casual</span>
+                    </div>
+                    <button class="game-btn">Play Now</button>
+                </div>
+            </div>
+
+            <div class="game-card scroll-animate">
+                <div class="game-image">⚡</div>
+                <div class="game-info">
+                    <h3 class="game-title">Lightning Rush</h3>
+                    <p class="game-description">An electrifying speed-based game with dynamic power-ups.</p>
+                    <div class="game-tags">
+                        <span class="tag">Speed</span>
+                        <span class="tag">WebGL</span>
+                    </div>
+                    <button class="game-btn">Play Now</button>
+                </div>
+            </div>
+
+            <div class="game-card scroll-animate">
+                <div class="game-image">🎯</div>
+                <div class="game-info">
+                    <h3 class="game-title">Target Master</h3>
+                    <p class="game-description">Precision shooting game with realistic physics and diverse levels.</p>
+                    <div class="game-tags">
+                        <span class="tag">Shooter</span>
+                        <span class="tag">Physics</span>
+                    </div>
+                    <button class="game-btn">Play Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell me about your project or just say hello!" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+                <div class="form-message" id="formMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Scroll Progress Bar
+        const scrollProgress = document.querySelector('.scroll-progress');
+        
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll Animation for Elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+
+            // Simulate form submission (replace with actual backend endpoint)
+            try {
+                // In a real application, you would send this data to a backend server
+                console.log('Form Data:', data);
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Show success message
+                formMessage.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                formMessage.classList.add('success');
+                formMessage.style.opacity = '1';
+
+                // Reset form
+                contactForm.reset();
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.opacity = '0';
+                }, 5000);
+            } catch (error) {
+                // Show error message
+                formMessage.textContent = '✗ Error sending message. Please try again.';
+                formMessage.classList.add('error');
+                formMessage.style.opacity = '1';
+
+                console.error('Error:', error);
+            }
+        });
+
+        // Add smooth scroll behavior to the entire page
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Game button interactions
+        document.querySelectorAll('.game-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const gameName = this.closest('.game-card').querySelector('.game-title').textContent;
+                alert(`Loading ${gameName}...`);
+                // In a real application, you would navigate to the game
+            });
+        });
+
+        // Mobile menu toggle (optional enhancement)
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.style.color = 'var(--text-light)';
+                    });
+
+                    const activeLink = document.querySelector(`.nav-links a[href="#${section.id}"]);
+                    if (activeLink) {
+                        activeLink.style.color = 'var(--primary-color)';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
