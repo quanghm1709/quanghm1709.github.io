@@ -10,8 +10,6 @@ class LetterGame {
         this.overlayTitle = document.getElementById('overlay-title');
         this.overlayDesc = document.getElementById('overlay-desc');
 
-        this.words = ['GALAXY', 'NEBULA', 'PLANET', 'COSMOS', 'METEOR', 'ROCKET', 'AURORA', 'ORBIT', 'QUASAR', 'STELLAR'];
-        this.currentWord = '';
         this.letters = [];
         this.collected = [];
         this.wave = 1;
@@ -32,37 +30,30 @@ class LetterGame {
 
     startWave() {
         this.waveCounter.textContent = `WAVE ${this.wave}`;
-        
-        // Pick a word based on wave OR randomly
-        this.currentWord = this.words[Math.floor(Math.random() * this.words.length)];
-        this.letters = this.generateWordLetters(this.currentWord);
-        
+        this.letters = this.generateLetters(6);
         this.collected = [];
         this.collectionBar.innerHTML = '';
-        
-        // Add placeholders for the word in collection bar
-        for (let i = 0; i < this.currentWord.length; i++) {
-            const slot = document.createElement('div');
-            slot.className = 'letter-slot';
-            this.collectionBar.appendChild(slot);
-        }
-
         this.renderLetters();
         this.startPhase('prep');
     }
 
-    generateWordLetters(word) {
+    generateLetters(count) {
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const result = [];
-        for (let i = 0; i < word.length; i++) {
-            result.push({
-                char: word[i],
-                index: i,
-                x: 20 + Math.random() * 320,
-                y: 20 + Math.random() * 320,
-                rotation: Math.random() * 360,
-                element: null,
-                isCollected: false
-            });
+        const used = new Set();
+        while (result.length < count) {
+            const char = alphabet[Math.floor(Math.random() * alphabet.length)];
+            if (!used.has(char)) {
+                used.add(char);
+                result.push({
+                    char: char,
+                    x: 20 + Math.random() * 300,
+                    y: 20 + Math.random() * 300,
+                    rotation: Math.random() * 360,
+                    element: null,
+                    isCollected: false
+                });
+            }
         }
         return result;
     }
@@ -123,13 +114,10 @@ class LetterGame {
         if (!this.isPlaying || this.phase !== 'action') return;
 
         const char = e.key.toUpperCase();
-        const nextIndex = this.collected.length;
-        
-        if (nextIndex < this.letters.length) {
-            const target = this.letters[nextIndex];
-            if (target.char === char) {
-                this.collectLetter(target);
-            }
+        const target = this.letters.find(l => l.char === char && !l.isCollected);
+
+        if (target) {
+            this.collectLetter(target);
         }
     }
 
@@ -139,10 +127,7 @@ class LetterGame {
         
         const el = letter.element;
         el.classList.add('letter-collected');
-        
-        // Place in the correct slot
-        const slots = this.collectionBar.querySelectorAll('.letter-slot');
-        slots[letter.index].appendChild(el);
+        this.collectionBar.appendChild(el);
 
         if (this.collected.length === this.letters.length) {
             this.winWave();
