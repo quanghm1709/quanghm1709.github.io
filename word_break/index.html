@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Rush - Typing Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="prep-mode">
+    <div class="container">
+        <div id="status-msg">GET READY!</div>
+
+        <div class="timer-section">
+            <div class="phase-indicator" id="phase-label">PREPARATION</div>
+            <div class="timer-bar-container">
+                <div id="timer-bar" class="timer-bar"></div>
+            </div>
+        </div>
+
+        <div id="stage" class="stage-window">
+            <div id="wave-counter" class="wave-counter">WAVE 1</div>
+            <!-- Letters will be spawned here -->
+            
+            <div id="game-overlay" class="overlay">
+                <h2 id="overlay-title">WORD RUSH</h2>
+                <p id="overlay-desc">Form the secret word by typing letters in order!</p>
+                <button class="btn-start" onclick="game.start()">START GAME</button>
+            </div>
+        </div>
+
+        <div id="collection-bar" class="collection-bar">
+            <!-- Collected letters will fly here -->
+        </div>
+
+        <p style="opacity: 0.5; font-size: 0.8rem; margin-top: 1rem;">
+            5s to OBSERVE • 5s to TYPE
+        </p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
