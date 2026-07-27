@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111827" />
+  <title>Ball Buddy — Nuôi bóng, làm nông, chiến đấu</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MINI WEB GAME</p>
+        <h1>Ball Buddy</h1>
+      </div>
+      <div class="currency-strip" aria-label="Tài nguyên">
+        <div class="currency-pill"><span>🪙</span><strong id="goldValue">0</strong><small>Vàng</small></div>
+        <div class="currency-pill"><span>🟩</span><strong id="foodValue">0</strong><small>Thức ăn</small></div>
+        <button class="icon-button" id="soundToggle" type="button" title="Bật hoặc tắt âm thanh">🔊</button>
+        <button class="icon-button" id="resetButton" type="button" title="Xóa tiến trình">↻</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-card">
+        <div>
+          <span class="level-badge">LV <strong id="levelValue">1</strong></span>
+          <h2 id="petName">Mochi</h2>
+          <p id="petMoodText">Đang tò mò nhìn quanh sân.</p>
+        </div>
+        <div class="hero-exp">
+          <span>EXP</span>
+          <strong id="expText">0 / 25</strong>
+          <div class="progress-track"><div id="expBar" class="progress-fill exp-fill"></div></div>
+        </div>
+      </section>
+
+      <nav class="tabs" aria-label="Khu vực trong game">
+        <button class="tab-button active" type="button" data-tab="farm"><span>🌱</span>Nông trại</button>
+        <button class="tab-button" type="button" data-tab="playground"><span>🏡</span>Sân chơi</button>
+        <button class="tab-button" type="button" data-tab="arena"><span>⚔️</span>Sân đấu</button>
+      </nav>
+
+      <section id="farmTab" class="tab-panel active" data-panel="farm">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">TRỒNG VÀ THU HOẠCH</p>
+            <h2>Nông trại Khối Mầm</h2>
+          </div>
+          <p>Trồng các hạt vuông, chờ chúng lớn rồi thu hoạch làm thức ăn cho Mochi.</p>
+        </div>
+
+        <div class="farm-layout">
+          <div id="farmGrid" class="farm-grid" aria-live="polite"></div>
+          <aside class="info-card farm-guide">
+            <h3>Chu trình nông trại</h3>
+            <div class="guide-step"><span>1</span><p>Nhấn vào đất trống để gieo một Khối Mầm.</p></div>
+            <div class="guide-step"><span>2</span><p>Mỗi ô có thời gian lớn khác nhau và tiếp tục phát triển khi chuyển tab.</p></div>
+            <div class="guide-step"><span>3</span><p>Thu hoạch để nhận thức ăn; mở thêm đất bằng vàng từ chiến đấu.</p></div>
+            <div class="mini-stat-row"><span>Đất đã mở</span><strong id="unlockedPlotText">1 / 6</strong></div>
+            <div class="mini-stat-row"><span>Tổng thu hoạch</span><strong id="totalHarvestText">0</strong></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="playgroundTab" class="tab-panel" data-panel="playground">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CHĂM SÓC HẰNG NGÀY</p>
+            <h2>Sân chơi của Mochi</h2>
+          </div>
+          <p>Quả bóng tự đi lại, nghỉ ngơi và vui chơi. Chăm đúng lúc để nhận EXP.</p>
+        </div>
+
+        <div class="playground-layout">
+          <div class="playground-scene" id="playgroundScene">
+            <div class="sky-cloud cloud-one"></div>
+            <div class="sky-cloud cloud-two"></div>
+            <div class="toy-block toy-one"></div>
+            <div class="toy-block toy-two"></div>
+            <div class="food-bowl"><span></span><span></span><span></span></div>
+            <div class="pet-speech" id="petSpeech">Xin chào!</div>
+            <div class="pet-wrap" id="petWrap" aria-label="Mochi">
+              <div class="orbit-layer" id="playgroundOrbit"></div>
+              <div class="pet-ball" id="playgroundBall">
+                <div class="face"><i class="eye left-eye"></i><i class="eye right-eye"></i><i class="mouth"></i></div>
+                <div class="pet-shine"></div>
+                <div class="diamond-cannon hidden" id="playgroundCannon"></div>
+              </div>
+              <div class="pet-shadow"></div>
+            </div>
+            <div class="ground-decor grass-a"></div>
+            <div class="ground-decor grass-b"></div>
+            <div class="ground-decor grass-c"></div>
+          </div>
+
+          <aside class="care-panel">
+            <div class="care-status-list">
+              <div class="care-status">
+                <div class="status-label"><span>🍽️ Độ no</span><strong id="satietyText">70%</strong></div>
+                <div class="progress-track"><div id="satietyBar" class="progress-fill satiety-fill"></div></div>
+              </div>
+              <div class="care-status">
+                <div class="status-label"><span>⚡ Năng lượng</span><strong id="energyText">80%</strong></div>
+                <div class="progress-track"><div id="energyBar" class="progress-fill energy-fill"></div></div>
+              </div>
+              <div class="care-status">
+                <div class="status-label"><span>💛 Vui vẻ</span><strong id="happinessText">75%</strong></div>
+                <div class="progress-track"><div id="happinessBar" class="progress-fill happiness-fill"></div></div>
+              </div>
+            </div>
+
+            <div class="action-grid">
+              <button id="feedButton" class="action-button" type="button"><span>🟩</span><strong>Cho ăn</strong><small>-1 thức ăn</small></button>
+              <button id="playButton" class="action-button" type="button"><span>⚽</span><strong>Vui chơi</strong><small>-12 năng lượng</small></button>
+              <button id="sleepButton" class="action-button" type="button"><span>🌙</span><strong>Đi ngủ</strong><small>Hồi năng lượng</small></button>
+              <button id="petButton" class="action-button" type="button"><span>🖐️</span><strong>Vuốt ve</strong><small>+ vui vẻ</small></button>
+            </div>
+
+            <div class="info-card stat-card">
+              <h3>Chỉ số chiến đấu</h3>
+              <div class="combat-stat-grid">
+                <div><span>ATK</span><strong id="atkValue">6</strong></div>
+                <div><span>HP</span><strong id="hpValue">42</strong></div>
+                <div><span>DEF</span><strong id="defValue">2</strong></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="arenaTab" class="tab-panel" data-panel="arena">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ĐẤU BÓNG NPC</p>
+            <h2>Đấu trường Khối Cầu</h2>
+          </div>
+          <p>Đánh bại bóng NPC ngẫu nhiên để nhận vàng, EXP và mở rộng nông trại.</p>
+        </div>
+
+        <div class="arena-layout">
+          <div class="arena-stage" id="arenaStage">
+            <div class="arena-lights"></div>
+            <div class="fighter-side player-side">
+              <span class="fighter-name">Mochi</span>
+              <div class="battle-hp"><div id="playerBattleHpBar"></div></div>
+              <small id="playerBattleHpText">HP 42 / 42</small>
+              <div class="fighter-wrap player-fighter" id="playerFighter">
+                <div class="orbit-layer" id="arenaOrbit"></div>
+                <div class="pet-ball battle-ball player-ball">
+                  <div class="face"><i class="eye left-eye"></i><i class="eye right-eye"></i><i class="mouth"></i></div>
+                  <div class="pet-shine"></div>
+                  <div class="diamond-cannon hidden" id="arenaCannon"></div>
+                </div>
+              </div>
+            </div>
+            <div class="versus-badge">VS</div>
+            <div class="fighter-side enemy-side">
+              <span class="fighter-name" id="enemyName">Bóng Hoang</span>
+              <div class="battle-hp enemy-hp"><div id="enemyBattleHpBar"></div></div>
+              <small id="enemyBattleHpText">HP -- / --</small>
+              <div class="fighter-wrap enemy-fighter" id="enemyFighter">
+                <div class="enemy-ball battle-ball" id="enemyBall">
+                  <div class="face"><i class="eye left-eye"></i><i class="eye right-eye"></i><i class="mouth"></i></div>
+                  <div class="pet-shine"></div>
+                </div>
+              </div>
+            </div>
+            <div class="projectile diamond-shot" id="diamondShot"></div>
+          </div>
+
+          <aside class="battle-panel">
+            <div class="enemy-preview" id="enemyPreview">
+              <span>Đối thủ đề xuất</span>
+              <strong id="enemyPreviewName">Bóng Hoang Lv.1</strong>
+              <p id="enemyPreviewStats">ATK 5 · HP 38 · DEF 1</p>
+            </div>
+            <div class="battle-actions">
+              <button class="primary-button" id="startBattleButton" type="button">Tìm đối thủ & chiến đấu</button>
+              <button class="secondary-button" id="rerollEnemyButton" type="button">Đổi đối thủ</button>
+            </div>
+            <div class="battle-log" id="battleLog" aria-live="polite">
+              <p>Hãy tìm một đối thủ để bắt đầu.</p>
+            </div>
+            <div class="reward-hint"><span>🏆</span><p>Thắng liên tiếp tăng nhẹ phần thưởng vàng. Thua không mất tài nguyên.</p></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Dữ liệu được lưu tự động trên trình duyệt.</span>
+      <span id="saveStatus">Đã lưu</span>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop hidden" id="evolutionModal" role="dialog" aria-modal="true" aria-labelledby="evolutionTitle">
+    <div class="modal-card">
+      <span class="modal-kicker">MỐC TIẾN HÓA</span>
+      <h2 id="evolutionTitle">Mochi đã đạt Lv.5!</h2>
+      <p>Chọn một vật phẩm. Lựa chọn này sẽ thay đổi ngoại hình và sức mạnh chiến đấu.</p>
+      <div class="evolution-grid" id="evolutionOptions"></div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <script src="game.js"></script>
+</body>
+</html>
