@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101827" />
+  <title>Ironline: Isometric Defense</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <section id="homeScreen" class="screen active">
+      <div class="home-bg-grid"></div>
+      <header class="hero">
+        <div class="eyebrow">ISOMETRIC TOWER DEFENSE</div>
+        <h1>IRONLINE</h1>
+        <p>Build an automated defense network, protect the command base, and survive 10 escalating waves.</p>
+      </header>
+
+      <main class="level-select">
+        <div class="section-title">
+          <span>SELECT OPERATION</span>
+          <small>All operations contain 10 waves</small>
+        </div>
+        <div id="levelCards" class="level-cards"></div>
+      </main>
+
+      <footer class="home-footer">
+        <span>Drag towers from the build dock onto open isometric tiles.</span>
+        <span>Tip: Mining rigs create the economy that keeps your defense alive.</span>
+      </footer>
+    </section>
+
+    <section id="gameScreen" class="screen">
+      <header class="topbar">
+        <button id="homeBtn" class="icon-btn" title="Return to operation select">←</button>
+        <div class="mission-label">
+          <small>OPERATION</small>
+          <strong id="missionName">Dust Canyon</strong>
+        </div>
+        <div class="status-cluster">
+          <div class="status-pill ore"><span class="status-icon">◆</span><div><small>ORE</small><strong id="oreValue">0</strong></div></div>
+          <div class="status-pill"><span class="status-icon">◈</span><div><small>WAVE</small><strong><span id="waveValue">0</span>/10</strong></div></div>
+          <div class="status-pill health"><span class="status-icon">⬟</span><div><small>BASE</small><strong id="baseValue">100</strong></div></div>
+        </div>
+        <div class="top-actions">
+          <button id="speedBtn" class="chip-btn">1×</button>
+          <button id="pauseBtn" class="chip-btn">Pause</button>
+          <button id="soundBtn" class="chip-btn">Sound: On</button>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <div class="canvas-shell">
+          <canvas id="gameCanvas" width="1180" height="720" aria-label="Tower defense battlefield"></canvas>
+          <div id="announcement" class="announcement hidden"></div>
+          <div id="hoverTip" class="hover-tip hidden"></div>
+          <div class="canvas-hint">Drag to place · Click a tower to inspect · Right-click to cancel</div>
+        </div>
+
+        <aside class="side-panel">
+          <section class="panel-block build-block">
+            <div class="panel-heading">
+              <div><small>DEFENSE NETWORK</small><h2>Build Dock</h2></div>
+              <span id="buildModeBadge" class="mode-badge">READY</span>
+            </div>
+            <div id="towerList" class="tower-list"></div>
+          </section>
+
+          <section id="inspector" class="panel-block inspector empty">
+            <div class="empty-inspector">
+              <div class="radar-icon">◎</div>
+              <strong>No tower selected</strong>
+              <span>Select a deployed tower to view stats and upgrades.</span>
+            </div>
+          </section>
+
+          <section class="panel-block wave-block">
+            <div class="wave-row">
+              <div>
+                <small id="waveStateLabel">PREP PHASE</small>
+                <strong id="nextWaveText">Wave 1 ready</strong>
+              </div>
+              <button id="waveBtn" class="primary-btn">Start Wave</button>
+            </div>
+            <div class="progress-track"><div id="waveProgress" class="progress-fill"></div></div>
+            <div id="enemyForecast" class="enemy-forecast"></div>
+          </section>
+        </aside>
+      </main>
+    </section>
+
+    <div id="resultModal" class="modal hidden">
+      <div class="modal-card">
+        <div id="resultBadge" class="result-badge">OPERATION COMPLETE</div>
+        <h2 id="resultTitle">Base secured</h2>
+        <p id="resultText">The final hostile wave has been neutralized.</p>
+        <div class="result-stats">
+          <div><small>WAVES</small><strong id="resultWaves">10</strong></div>
+          <div><small>ENEMIES</small><strong id="resultKills">0</strong></div>
+          <div><small>ORE MINED</small><strong id="resultOre">0</strong></div>
+        </div>
+        <div class="modal-actions">
+          <button id="retryBtn" class="secondary-btn">Retry</button>
+          <button id="resultHomeBtn" class="primary-btn">Operations</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
