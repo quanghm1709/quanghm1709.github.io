@@ -1,0 +1,2 @@
+Đặt ảnh cưới và file wedding-music.mp3 trong thư mục này.
+Sau đó thay các URL ảnh trong styles.css thành đường dẫn assets/ten-file.jpg.
