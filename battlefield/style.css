@@ -186,3 +186,29 @@ button { font: inherit; }
   .card-type { font-size: 5px; top: 6px; right: 4px; }
   .card-icon { min-width: 38px; min-height: 35px; font-size: 10px; }
 }
+
+/* Sprite art imported from the supplied PNG sheet */
+.card-art-sprite {
+  display:block;
+  width:100%;
+  height:72px;
+  object-fit:contain;
+  object-position:center bottom;
+  pointer-events:none;
+  filter:drop-shadow(0 7px 4px rgba(0,0,0,.35));
+}
+.card-unit .card-art,
+.card-struct .card-art,
+.card-support .card-art { padding: 2px 3px 0; overflow:hidden; }
+.struct-card-sprite { height:70px; }
+.support-card-sprite { height:70px; }
+.drag-sprite {
+  position:absolute; left:50%; top:5px; transform:translateX(-50%);
+  width:76px; height:55px; object-fit:contain; object-position:center bottom;
+  filter:drop-shadow(0 5px 3px rgba(0,0,0,.38));
+}
+.drag-card .drag-name { margin-top: 56px; }
+@media (max-width:760px) {
+  .card-art-sprite { height:43px; }
+  .struct-card-sprite,.support-card-sprite { height:42px; }
+}
