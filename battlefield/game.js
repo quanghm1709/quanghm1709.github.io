@@ -31,6 +31,23 @@
     pause: document.getElementById('pause-btn'),
     sound: document.getElementById('sound-btn'),
     pauseScreen: document.getElementById('pause-screen'),
+    homeScreen: document.getElementById('home-screen'),
+    gameShell: document.getElementById('game-shell'),
+    homeCoins: document.getElementById('home-coins'),
+    homeDeck: document.getElementById('home-deck'),
+    deckCount: document.getElementById('deck-count'),
+    collectionGrid: document.getElementById('collection-grid'),
+    pullOne: document.getElementById('pull-one-btn'),
+    pullTen: document.getElementById('pull-ten-btn'),
+    startGame: document.getElementById('start-game-btn'),
+    startDeckNote: document.getElementById('start-deck-note'),
+    gachaModal: document.getElementById('gacha-modal'),
+    gachaResults: document.getElementById('gacha-results'),
+    gachaClose: document.getElementById('gacha-close-btn'),
+    gachaDone: document.getElementById('gacha-done-btn'),
+    homeButton: document.getElementById('home-btn'),
+    resultHome: document.getElementById('result-home-btn'),
+    resultReward: document.getElementById('result-reward'),
   };
 
   // ---------------------------------------------------------------------------
@@ -143,8 +160,76 @@
     freeze:  { id:'freeze', type:'support', ref:'freeze', name:'FREEZE SHELL', cost:4, icon:'ICE', subtitle:'Enemy freeze' },
   };
 
-  // One copy of each card. When the draw pile is empty, the discard pile is shuffled back in.
-  const MASTER_DECK = Object.keys(CARD_DEFS);
+  // ---------------------------------------------------------------------------
+  // META PROGRESSION / COLLECTION / GACHA
+  // ---------------------------------------------------------------------------
+  const ALL_CARD_IDS = Object.keys(CARD_DEFS);
+  const DECK_SIZE = 12;
+  const STARTER_COINS = 1000;
+  const GACHA_SINGLE_COST = 100;
+  const GACHA_TEN_COST = 900;
+  const WIN_REWARD = 250;
+  const MAX_CARD_LEVEL = 6;
+  const META_STORAGE_KEY = 'frontline_cards_meta_v3';
+  const STARTER_DECK = [
+    'rifleman','assault','heavy','gunner','shotgun','shield',
+    'jeep','turret','generator','barracks','bombing','mine'
+  ];
+
+  let meta = null;
+
+  function defaultMeta() {
+    const collection = {};
+    for(const id of ALL_CARD_IDS) collection[id] = { owned:STARTER_DECK.includes(id), level:1, copies:0 };
+    return { coins:STARTER_COINS, deck:STARTER_DECK.slice(), collection };
+  }
+
+  function loadMeta() {
+    const fallback=defaultMeta();
+    try {
+      const raw=localStorage.getItem(META_STORAGE_KEY);
+      if(!raw){ meta=fallback; saveMeta(); return; }
+      const parsed=JSON.parse(raw);
+      meta={...fallback,...parsed,collection:{...fallback.collection,...(parsed.collection||{})}};
+      for(const id of ALL_CARD_IDS) meta.collection[id]={...fallback.collection[id],...(meta.collection[id]||{})};
+      meta.deck=(Array.isArray(meta.deck)?meta.deck:STARTER_DECK).filter((id,i,a)=>ALL_CARD_IDS.includes(id)&&meta.collection[id]?.owned&&a.indexOf(id)===i).slice(0,DECK_SIZE);
+      for(const id of STARTER_DECK){ if(meta.deck.length>=DECK_SIZE)break; if(meta.collection[id]?.owned&&!meta.deck.includes(id))meta.deck.push(id); }
+      meta.coins=Math.max(0,Number(meta.coins)||0);
+      saveMeta();
+    } catch(err){ console.warn('Meta save reset:',err); meta=fallback; saveMeta(); }
+  }
+
+  function saveMeta() {
+    try { localStorage.setItem(META_STORAGE_KEY,JSON.stringify(meta)); } catch(err) { console.warn('Save failed:',err); }
+  }
+
+  function copiesNeeded(level){ return level>=MAX_CARD_LEVEL ? 0 : 2 ** level; } // Lv1→2:2, Lv2→3:4, ...
+  function cardPowerMultiplier(level){ return 1 + Math.max(0,level-1)*.10; }
+  function cardLevel(id){ return meta?.collection?.[id]?.level || 1; }
+
+  function getUnitDef(typeId,side='player') {
+    const base=UNIT_TYPES[typeId];
+    if(side!=='player') return base;
+    const level=cardLevel(typeId), mult=cardPowerMultiplier(level);
+    return {...base,hp:Math.round(base.hp*mult),damage:base.damage*mult,cardLevel:level};
+  }
+
+  function getStructureDef(typeId) {
+    const base=STRUCT_TYPES[typeId], level=cardLevel(typeId), mult=cardPowerMultiplier(level);
+    const d={...base,hp:Math.round(base.hp*mult),cardLevel:level};
+    if(typeId==='turret') d.damage=base.damage*mult;
+    if(typeId==='generator') d.energyBonus=base.energyBonus*(1+(level-1)*.08);
+    if(typeId==='barracks') d.spawnEvery=base.spawnEvery/(1+(level-1)*.08);
+    return d;
+  }
+
+  function getSupportDef(typeId) {
+    const base=SUPPORT_TYPES[typeId], level=cardLevel(typeId), mult=cardPowerMultiplier(level);
+    const d={...base,cardLevel:level};
+    if('damage' in base) d.damage=base.damage*mult;
+    if('duration' in base) d.duration=base.duration*(1+(level-1)*.08);
+    return d;
+  }
 
   const CONFIG = {
     maxEnergy:10,
@@ -219,7 +304,7 @@
       playerTurretCd:0,
       enemyTurretCd:0,
       firstDeploy:false,
-      drawPile:shuffle(MASTER_DECK),
+      drawPile:shuffle(meta.deck),
       discard:[],
       hand:[],
       stats:{damage:0, units:0, energy:0, structures:0, support:0},
@@ -228,6 +313,7 @@
       shake:0,
       message:'',
       messageTimer:0,
+      rewardGranted:false,
     };
     while (game.hand.length < CONFIG.handSize) drawCard();
     ui.result.classList.add('hidden');
@@ -236,6 +322,126 @@
     updateHUD();
     renderCards();
   }
+
+  // ---------------------------------------------------------------------------
+  // HOME / DECK BUILDER / GACHA UI
+  // ---------------------------------------------------------------------------
+  function showHome() {
+    if(game){ game.paused=true; game.running=false; }
+    dragging=null; ui.drag.classList.add('hidden');
+    ui.gameShell.classList.add('hidden');
+    ui.homeScreen.classList.remove('hidden');
+    ui.result.classList.add('hidden');
+    ui.pauseScreen.classList.add('hidden');
+    renderHome();
+  }
+
+  function startBattle() {
+    if(meta.deck.length!==DECK_SIZE){ renderHome(); return; }
+    ui.homeScreen.classList.add('hidden');
+    ui.gameShell.classList.remove('hidden');
+    resetGame();
+    game.paused=false;
+    lastTime=performance.now();
+  }
+
+  function collectionState(id){ return meta.collection[id] || {owned:false,level:1,copies:0}; }
+
+  function renderHome() {
+    if(!meta) return;
+    ui.homeCoins.textContent=Math.floor(meta.coins).toLocaleString();
+    ui.deckCount.textContent=`${meta.deck.length}/${DECK_SIZE}`;
+    ui.startGame.disabled=meta.deck.length!==DECK_SIZE;
+    ui.startDeckNote.textContent=meta.deck.length===DECK_SIZE?`Deck ready · ${DECK_SIZE} cards`:`Need ${DECK_SIZE-meta.deck.length} more card${DECK_SIZE-meta.deck.length===1?'':'s'}`;
+    ui.pullOne.disabled=meta.coins<GACHA_SINGLE_COST;
+    ui.pullTen.disabled=meta.coins<GACHA_TEN_COST;
+    renderHomeDeck();
+    renderCollection();
+  }
+
+  function homeCardArt(id,cls='mini-art') {
+    const def=CARD_DEFS[id],src=cardSpriteSource(def);
+    return src?`<img class="${cls}" src="${src}" alt="${def.name}">`:`<div class="${cls}">${def.icon}</div>`;
+  }
+
+  function renderHomeDeck() {
+    ui.homeDeck.innerHTML='';
+    for(let i=0;i<DECK_SIZE;i++){
+      const id=meta.deck[i];
+      const slot=document.createElement('div');
+      if(!id){ slot.className='deck-slot empty'; ui.homeDeck.appendChild(slot); continue; }
+      const def=CARD_DEFS[id],state=collectionState(id);
+      slot.className=`deck-slot type-${def.type}`;
+      slot.innerHTML=`<div class="mini-cost">${def.cost}</div><div class="mini-type">${def.type.toUpperCase()}</div>${homeCardArt(id)}<div class="mini-level">LV${state.level}</div><div class="mini-name">${def.name}</div>`;
+      slot.title='Click to remove from deck';
+      slot.addEventListener('click',()=>{ meta.deck=meta.deck.filter(x=>x!==id); saveMeta(); renderHome(); });
+      ui.homeDeck.appendChild(slot);
+    }
+  }
+
+  function renderCollection() {
+    ui.collectionGrid.innerHTML='';
+    for(const id of ALL_CARD_IDS){
+      const def=CARD_DEFS[id],state=collectionState(id),needed=copiesNeeded(state.level),inDeck=meta.deck.includes(id);
+      const el=document.createElement('article');
+      el.className=`collection-card type-${def.type}${state.owned?'':' locked'}${inDeck?' in-deck':''}`;
+      const progress=state.level>=MAX_CARD_LEVEL?100:Math.min(100,(state.copies/needed)*100);
+      const upgradeText=state.level>=MAX_CARD_LEVEL?'MAX LEVEL':`UPGRADE ${state.copies}/${needed}`;
+      el.innerHTML=`
+        <div class="mini-cost">${def.cost}</div><div class="mini-type">${def.type.toUpperCase()}</div>
+        ${homeCardArt(id,'collection-art')}
+        <div class="collection-info"><div class="collection-name">${def.name}</div>
+        <div class="collection-meta"><span>LV ${state.level}</span><span>${state.level>=MAX_CARD_LEVEL?'MAX':`${state.copies}/${needed} COPY`}</span></div>
+        <div class="collection-progress"><i style="width:${progress}%"></i></div>
+        ${state.owned?`<button class="upgrade-btn" ${state.level>=MAX_CARD_LEVEL||state.copies<needed?'disabled':''}>${upgradeText}</button>`:''}</div>`;
+      if(state.owned){
+        el.addEventListener('click',e=>{
+          if(e.target.closest('.upgrade-btn')) return;
+          if(inDeck){ meta.deck=meta.deck.filter(x=>x!==id); }
+          else if(meta.deck.length<DECK_SIZE) meta.deck.push(id);
+          saveMeta(); renderHome();
+        });
+        const btn=el.querySelector('.upgrade-btn');
+        btn?.addEventListener('click',e=>{e.stopPropagation();upgradeCard(id);});
+      }
+      ui.collectionGrid.appendChild(el);
+    }
+  }
+
+  function upgradeCard(id) {
+    const state=collectionState(id),needed=copiesNeeded(state.level);
+    if(!state.owned||state.level>=MAX_CARD_LEVEL||state.copies<needed) return;
+    state.copies-=needed; state.level++;
+    saveMeta(); renderHome();
+  }
+
+  function pullGacha(count,cost) {
+    if(meta.coins<cost) return;
+    meta.coins-=cost;
+    const results=[];
+    for(let i=0;i<count;i++){
+      const id=ALL_CARD_IDS[Math.floor(Math.random()*ALL_CARD_IDS.length)];
+      const state=collectionState(id),isNew=!state.owned;
+      if(isNew){state.owned=true;state.level=1;state.copies=0;}
+      else state.copies++;
+      results.push({id,isNew});
+    }
+    saveMeta(); renderHome(); showGachaResults(results);
+  }
+
+  function showGachaResults(results) {
+    ui.gachaResults.innerHTML='';
+    results.forEach((r,i)=>{
+      const def=CARD_DEFS[r.id],state=collectionState(r.id),el=document.createElement('article');
+      el.className=`gacha-result-card type-${def.type}${r.isNew?' new':''}`;
+      el.style.animationDelay=`${i*.035}s`;
+      el.innerHTML=`${homeCardArt(r.id,'collection-art')}<h4>${def.name}</h4><p>${r.isNew?'<strong>NEW CARD UNLOCKED</strong>':`+1 UPGRADE COPY · ${state.copies} held`}</p><p>Level ${state.level} · ${def.type.toUpperCase()}</p>`;
+      ui.gachaResults.appendChild(el);
+    });
+    ui.gachaModal.classList.remove('hidden');
+  }
+
+  function closeGacha(){ ui.gachaModal.classList.add('hidden'); }
 
   // ---------------------------------------------------------------------------
   // AUDIO
@@ -295,16 +501,16 @@
 
   function cardDetails(card) {
     if(card.type==='unit') {
-      const d=UNIT_TYPES[card.ref];
-      return `HP ${d.hp} · DMG ${d.damage}`;
+      const d=getUnitDef(card.ref,'player');
+      return `HP ${d.hp} · DMG ${Math.round(d.damage)}`;
     }
     if(card.type==='struct') {
-      const d=STRUCT_TYPES[card.ref];
+      const d=getStructureDef(card.ref);
       if(card.ref==='turret') return `HP ${d.hp} · RNG ${d.range}`;
       if(card.ref==='generator') return `HP ${d.hp} · +${d.energyBonus.toFixed(2)}/s`;
       return `HP ${d.hp} · ${d.spawnEvery}s spawn`;
     }
-    const d=SUPPORT_TYPES[card.ref];
+    const d=getSupportDef(card.ref);
     if(card.ref==='bombing') return `DMG ${d.damage} · AOE ${d.radius}`;
     if(card.ref==='mine') return `DMG ${d.damage} · TRAP`;
     return `${d.duration}s · AOE ${d.radius}`;
@@ -323,7 +529,7 @@
         : `<div class="card-icon">${def.icon}</div>`;
       el.innerHTML=`
         <div class="card-cost">${def.cost}</div>
-        <div class="card-type">${def.type.toUpperCase()}</div>
+        <div class="card-type">${def.type.toUpperCase()} · LV${cardLevel(id)}</div>
         <div class="card-art">${art}</div>
         <div class="card-meta">
           <div class="card-name">${def.name}</div>
@@ -440,14 +646,14 @@
 
   function spawnUnit(typeId,side,laneY,customX=null,free=false) {
     if(sideCount(side)>=CONFIG.unitCapPerSide) return null;
-    const d=UNIT_TYPES[typeId];
+    const d=getUnitDef(typeId,side);
     const unit={
       kind:'unit', uid:++uid, typeId, side, def:d,
       x:customX ?? (side==='player'?CONFIG.playerSpawnX:CONFIG.enemySpawnX),
       y:normalizeLane(laneY)+(Math.random()-.5)*13,
       hp:d.hp,maxHp:d.hp,attackCd:Math.random()*.18,target:null,dead:false,deathT:0,
       hitFlash:0,muzzleFlash:0,walkT:Math.random()*10,facing:side==='player'?1:-1,justHit:0,
-      freezeTimer:0,speedBoostTimer:0,
+      freezeTimer:0,speedBoostTimer:0,speedBoostMult:1.55,
     };
     units.push(unit); spawnDust(unit.x,unit.y,6); blip('deploy',free?.45:.72);
     return unit;
@@ -463,14 +669,14 @@
 
   function deployStructure(typeId,x,y) {
     if(!validStructurePlacement(x,y)) return false;
-    const d=STRUCT_TYPES[typeId];
+    const d=getStructureDef(typeId);
     const s={kind:'structure',uid:++uid,typeId,side:'player',def:d,x,y:normalizeLane(y),hp:d.hp,maxHp:d.hp,dead:false,deathT:0,attackCd:0,spawnCd:typeId==='barracks'?2.5:0,hitFlash:0,muzzleFlash:0};
     structures.push(s); spawnDust(x,y,14); blip('deploy',.9); game.stats.structures++;
     return true;
   }
 
   function castSupport(typeId,x,y) {
-    const d=SUPPORT_TYPES[typeId];
+    const d=getSupportDef(typeId);
     x=Math.max(210,Math.min(1325,x)); y=normalizeLane(y);
     if(typeId==='bombing') {
       areaFx.push({kind:'bomb',x,y,r:d.radius,life:.7,max:.7});
@@ -480,7 +686,7 @@
       mines.push({uid:++uid,x,y,side:'player',def:d,armed:.45,dead:false});
       areaFx.push({kind:'place',x,y,r:40,life:.45,max:.45}); blip('support',.7);
     } else if(typeId==='rush') {
-      for(const u of units) if(!u.dead&&u.side==='player'&&Math.hypot(u.x-x,(u.y-y)*.8)<=d.radius) u.speedBoostTimer=Math.max(u.speedBoostTimer,d.duration);
+      for(const u of units) if(!u.dead&&u.side==='player'&&Math.hypot(u.x-x,(u.y-y)*.8)<=d.radius){u.speedBoostTimer=Math.max(u.speedBoostTimer,d.duration);u.speedBoostMult=1.55+(d.cardLevel-1)*.04;}
       areaFx.push({kind:'rush',x,y,r:d.radius,life:1,max:1}); blip('support',.85);
     } else if(typeId==='freeze') {
       for(const u of units) if(!u.dead&&u.side==='enemy'&&Math.hypot(u.x-x,(u.y-y)*.8)<=d.radius) u.freezeTimer=Math.max(u.freezeTimer,d.duration);
@@ -569,7 +775,7 @@
       if(!engaged&&distToBase<=u.def.range+42){engaged=true;u.facing=enemyDir;if(u.attackCd<=0)attackBase(u);}
 
       if(!engaged) {
-        const speed=u.def.moveSpeed*(u.speedBoostTimer>0?1.55:1);
+        const speed=u.def.moveSpeed*(u.speedBoostTimer>0?(u.speedBoostMult||1.55):1);
         let vx=enemyDir*speed,vy=0;
         if(u.target){const dy=u.target.y-u.y;vy+=Math.max(-18,Math.min(18,dy*.12));}
         for(const other of units){
@@ -961,17 +1167,40 @@
   }
 
   function finish(victory,subtitle){
-    if(!game.running)return;game.running=false;ui.resultKicker.textContent='BATTLE COMPLETE';ui.resultTitle.textContent=victory?'VICTORY':'DEFEAT';ui.resultTitle.style.color=victory?'#d9c16a':'#ca6a59';ui.resultSubtitle.textContent=subtitle;ui.statDamage.textContent=Math.round(game.stats.damage).toLocaleString();ui.statUnits.textContent=game.stats.units;ui.statEnergy.textContent=Math.round(game.stats.energy);ui.result.classList.remove('hidden');updateCardAvailability();
+    if(!game.running)return;
+    game.running=false;
+    let reward=0;
+    if(victory&&!game.rewardGranted){reward=WIN_REWARD;meta.coins+=reward;game.rewardGranted=true;saveMeta();}
+    ui.resultKicker.textContent='BATTLE COMPLETE';
+    ui.resultTitle.textContent=victory?'VICTORY':'DEFEAT';
+    ui.resultTitle.style.color=victory?'#d9c16a':'#ca6a59';
+    ui.resultSubtitle.textContent=subtitle;
+    ui.resultReward.textContent=victory?`+${reward} ✦ WAR COINS`:'NO WAR COINS · WIN TO EARN';
+    ui.resultReward.style.color=victory?'#ffe087':'#9d9583';
+    ui.statDamage.textContent=Math.round(game.stats.damage).toLocaleString();ui.statUnits.textContent=game.stats.units;ui.statEnergy.textContent=Math.round(game.stats.energy);ui.result.classList.remove('hidden');updateCardAvailability();
   }
 
   function togglePause(){if(!game.running)return;game.paused=!game.paused;ui.pause.textContent=game.paused?'▶':'Ⅱ';ui.pauseScreen.classList.toggle('hidden',!game.paused);updateCardAvailability();}
 
-  ui.restart.addEventListener('click',()=>{resetGame();lastTime=performance.now();});
+  ui.restart.addEventListener('click',startBattle);
+  ui.resultHome.addEventListener('click',showHome);
+  ui.homeButton.addEventListener('click',showHome);
   ui.pause.addEventListener('click',togglePause);
   ui.sound.addEventListener('click',()=>{muted=!muted;ui.sound.textContent=muted?'🔇':'🔊';if(!muted)ensureAudio();});
-  window.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();togglePause();}});
+  ui.startGame.addEventListener('click',startBattle);
+  ui.pullOne.addEventListener('click',()=>pullGacha(1,GACHA_SINGLE_COST));
+  ui.pullTen.addEventListener('click',()=>pullGacha(10,GACHA_TEN_COST));
+  ui.gachaClose.addEventListener('click',closeGacha);
+  ui.gachaDone.addEventListener('click',closeGacha);
+  ui.gachaModal.addEventListener('pointerdown',e=>{if(e.target===ui.gachaModal)closeGacha();});
+  window.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!ui.gameShell.classList.contains('hidden')){e.preventDefault();togglePause();}
+    if(e.code==='Escape'&&!ui.gachaModal.classList.contains('hidden')) closeGacha();
+  });
 
-  function loop(now){const dt=Math.min(.033,(now-lastTime)/1000||0);lastTime=now;if(game&&!game.paused)update(dt);draw();requestAnimationFrame(loop);}
+  function loop(now){const dt=Math.min(.033,(now-lastTime)/1000||0);lastTime=now;if(game&&!game.paused)update(dt);if(!ui.gameShell.classList.contains('hidden'))draw();requestAnimationFrame(loop);}
 
-  resetGame();requestAnimationFrame(loop);
+  loadMeta();
+  showHome();
+  requestAnimationFrame(loop);
 })();

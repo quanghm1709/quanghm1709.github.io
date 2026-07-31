@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <meta name="theme-color" content="#0f1714" />
-  <title>Frontline Cards — Playable Prototype</title>
+  <title>Frontline Cards — Deck & Gacha Prototype</title>
   <link rel="preload" href="./assets/battlefield.png" as="image" />
   <link rel="preload" href="./assets/structures/field_turret.png" as="image" />
   <link rel="preload" href="./assets/structures/energy_generator.png" as="image" />
@@ -17,7 +17,87 @@
 </head>
 <body>
   <main id="app">
-    <section id="game-shell" aria-label="Frontline Cards battlefield">
+    <section id="home-screen" class="home-screen" aria-label="Frontline Cards main menu">
+      <div class="home-bg"></div>
+      <div class="home-vignette"></div>
+
+      <header class="home-header">
+        <div>
+          <div class="eyebrow">TACTICAL CARD BATTLE</div>
+          <h1>FRONTLINE <span>CARDS</span></h1>
+          <p>Build your 12-card battle deck, upgrade your collection and push the frontline.</p>
+        </div>
+        <div class="currency-chip" title="War Coins">
+          <span class="coin-icon">✦</span>
+          <div><small>WAR COINS</small><b id="home-coins">1,000</b></div>
+        </div>
+      </header>
+
+      <div class="home-layout">
+        <section class="deck-panel home-panel">
+          <div class="section-head">
+            <div>
+              <span class="section-kicker">BATTLE LOADOUT</span>
+              <h2>Current Deck <b id="deck-count">12/12</b></h2>
+            </div>
+            <div class="deck-hint">Click a deck card to remove · click an owned collection card to add</div>
+          </div>
+          <div id="home-deck" class="home-deck"></div>
+
+          <div class="collection-head">
+            <div>
+              <span class="section-kicker">ARSENAL</span>
+              <h2>Card Collection</h2>
+            </div>
+            <div class="collection-legend"><span class="legend unit"></span>Unit <span class="legend struct"></span>Structure <span class="legend support"></span>Support</div>
+          </div>
+          <div id="collection-grid" class="collection-grid"></div>
+        </section>
+
+        <aside class="shop-panel home-panel">
+          <div class="shop-top">
+            <span class="section-kicker">SUPPLY DEPOT</span>
+            <h2>Gacha Shop</h2>
+            <p>Pull cards to unlock new options. Duplicate cards become upgrade copies.</p>
+          </div>
+
+          <div class="crate-visual">
+            <div class="crate-glow"></div>
+            <div class="crate-box"><span>★</span><b>SUPPLY<br>CRATE</b></div>
+            <div class="crate-copy">18 cards in pool · equal prototype odds</div>
+          </div>
+
+          <div class="pull-actions">
+            <button id="pull-one-btn" class="pull-btn secondary">
+              <span>OPEN ×1</span><b>100 ✦</b>
+            </button>
+            <button id="pull-ten-btn" class="pull-btn primary">
+              <span>OPEN ×10</span><b>900 ✦</b><small>10% pack discount</small>
+            </button>
+          </div>
+
+          <div class="upgrade-rule">
+            <b>UPGRADE RULE</b>
+            <p>Duplicates required per level: <strong>2 → 4 → 8 → 16 → 32</strong>. Each level increases card combat power.</p>
+          </div>
+
+          <button id="start-game-btn" class="start-game-btn">
+            <span>START BATTLE</span>
+            <small id="start-deck-note">Deck ready · 12 cards</small>
+          </button>
+        </aside>
+      </div>
+
+      <div id="gacha-modal" class="gacha-modal hidden">
+        <div class="gacha-dialog">
+          <div class="gacha-title"><span>SUPPLY DROP</span><button id="gacha-close-btn">×</button></div>
+          <div id="gacha-results" class="gacha-results"></div>
+          <button id="gacha-done-btn" class="gacha-done">COLLECT</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="game-shell" class="hidden" aria-label="Frontline Cards battlefield">
       <canvas id="game" width="1536" height="1024"></canvas>
 
       <header class="hud-top">
@@ -40,23 +120,24 @@
       </header>
 
       <aside class="controls">
+        <button id="home-btn" class="icon-btn" title="Về màn hình chính">⌂</button>
         <button id="pause-btn" class="icon-btn" title="Tạm dừng">Ⅱ</button>
         <button id="sound-btn" class="icon-btn" title="Âm thanh">🔊</button>
       </aside>
-
-      <div id="energy-pill" class="energy-pill">
-        <div class="energy-icon">⚡</div>
-        <div class="energy-copy">
-          <div class="energy-row"><b id="energy-text">5.0</b><span>/ 10</span></div>
-          <div class="energy-track"><div id="energy-fill"></div></div>
-        </div>
-        <div id="regen-label" class="regen-label">+0.5/s</div>
-      </div>
 
       <div id="tip" class="tip">Hand 4 lá rút ngẫu nhiên từ Deck. Dùng một lá để rút lá kế tiếp • UNIT / STRUCT / SUPPORT</div>
 
       <div id="deck-status" class="deck-status" aria-label="Deck status"></div>
       <footer id="card-dock" class="card-dock" aria-label="Battle cards"></footer>
+
+      <div id="energy-pill" class="energy-pill gameplay-energy-bar">
+        <div class="energy-icon">⚡</div>
+        <div class="energy-copy">
+          <div class="energy-row"><b id="energy-text">5.0</b><span>/ 10 ENERGY</span></div>
+          <div class="energy-track"><div id="energy-fill"></div></div>
+        </div>
+        <div id="regen-label" class="regen-label">+0.5/s</div>
+      </div>
 
       <div id="drag-card" class="drag-card hidden"></div>
       <div id="result-screen" class="result-screen hidden">
@@ -64,12 +145,16 @@
           <div id="result-kicker" class="result-kicker">BATTLE COMPLETE</div>
           <h1 id="result-title">VICTORY</h1>
           <p id="result-subtitle">Enemy base destroyed.</p>
+          <div id="result-reward" class="result-reward">+250 ✦ WAR COINS</div>
           <div class="result-stats">
             <div><span>Damage dealt</span><b id="stat-damage">0</b></div>
             <div><span>Units deployed</span><b id="stat-units">0</b></div>
             <div><span>Energy spent</span><b id="stat-energy">0</b></div>
           </div>
-          <button id="restart-btn">PLAY AGAIN</button>
+          <div class="result-actions">
+            <button id="result-home-btn" class="result-secondary">HOME</button>
+            <button id="restart-btn">PLAY AGAIN</button>
+          </div>
         </div>
       </div>
 

@@ -212,3 +212,170 @@ button { font: inherit; }
   .card-art-sprite { height:43px; }
   .struct-card-sprite,.support-card-sprite { height:42px; }
 }
+
+/* ========================================================================== 
+   META / HOME SCREEN
+   ========================================================================== */
+.home-screen {
+  position: relative;
+  width: min(100vw, 1720px);
+  height: min(100vh, 1040px);
+  overflow: hidden;
+  background: #111813;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.05), 0 35px 100px rgba(0,0,0,.55);
+  color: #f6ecd6;
+}
+.home-bg {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg,rgba(7,11,9,.18),rgba(7,11,9,.83)),
+    url("assets/battlefield.png") center 42% / cover no-repeat;
+  filter:saturate(.75) contrast(1.03);
+  transform:scale(1.03);
+}
+.home-vignette {
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(circle at 50% 35%, transparent 0 32%, rgba(4,7,6,.24) 65%, rgba(4,7,6,.78) 100%);
+}
+.home-header {
+  position:relative; z-index:2;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:24px;
+  padding:clamp(18px,2.4vw,38px) clamp(22px,3.2vw,52px) 18px;
+}
+.eyebrow,.section-kicker { color:#c6b270; font-size:10px; font-weight:950; letter-spacing:.22em; }
+.home-header h1 { margin:4px 0 4px; font-size:clamp(30px,4vw,62px); line-height:.9; letter-spacing:.02em; }
+.home-header h1 span { color:#d9bd63; }
+.home-header p { margin:8px 0 0; max-width:640px; color:#c8c0ac; font-size:clamp(10px,.9vw,14px); }
+.currency-chip {
+  min-width:180px; display:flex; align-items:center; gap:12px; padding:11px 16px;
+  border:1px solid rgba(229,197,103,.28); background:linear-gradient(180deg,rgba(26,34,27,.94),rgba(12,18,15,.94));
+  box-shadow:0 12px 30px rgba(0,0,0,.28); backdrop-filter:blur(7px);
+}
+.coin-icon { width:37px; height:37px; border-radius:50%; display:grid; place-items:center; color:#27200f; background:linear-gradient(145deg,#ffe794,#c89225); border:2px solid #fff0ad; font-weight:950; box-shadow:0 0 18px rgba(218,170,53,.24); }
+.currency-chip small,.currency-chip b { display:block; }
+.currency-chip small { color:#a99f88; font-size:8px; font-weight:900; letter-spacing:.16em; }
+.currency-chip b { margin-top:2px; font-size:20px; color:#ffe18a; }
+
+.home-layout {
+  position:relative; z-index:2;
+  height:calc(100% - clamp(104px,12vw,155px));
+  padding:0 clamp(18px,3vw,48px) clamp(18px,2.8vw,42px);
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,360px); gap:18px;
+}
+.home-panel {
+  min-height:0; border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(20,29,23,.93),rgba(11,17,14,.95));
+  box-shadow:0 18px 55px rgba(0,0,0,.34); backdrop-filter:blur(10px);
+}
+.deck-panel { padding:17px; overflow:hidden; display:flex; flex-direction:column; }
+.section-head,.collection-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; }
+.section-head h2,.collection-head h2,.shop-panel h2 { margin:3px 0 0; font-size:18px; letter-spacing:.02em; }
+.section-head h2 b { color:#e0c368; font-size:12px; margin-left:7px; }
+.deck-hint,.collection-legend { color:#978f7c; font-size:9px; font-weight:700; }
+.collection-legend { display:flex; gap:6px; align-items:center; white-space:nowrap; }
+.legend { width:8px; height:8px; display:inline-block; }
+.legend.unit { background:#91ad68; }.legend.struct { background:#d2b05e; }.legend.support { background:#8eb9cc; }
+.home-deck {
+  margin-top:11px; display:grid; grid-template-columns:repeat(6,minmax(84px,1fr)); gap:7px;
+  padding:9px; min-height:116px; border:1px solid rgba(218,185,92,.16); background:rgba(4,8,6,.35);
+}
+.deck-slot,.collection-card,.gacha-result-card {
+  position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.11);
+  background:linear-gradient(160deg,#3e4a3b,#1c251f 70%); color:#f6ecd6;
+}
+.deck-slot { min-height:93px; padding:5px; cursor:pointer; transition:transform .15s,filter .15s,border-color .15s; }
+.deck-slot:hover { transform:translateY(-3px); border-color:rgba(240,210,116,.38); }
+.deck-slot.empty { display:grid; place-items:center; border-style:dashed; color:#6f766c; background:rgba(0,0,0,.16); cursor:default; }
+.deck-slot.empty::before { content:"+"; font-size:22px; opacity:.6; }
+.mini-type { position:absolute; right:4px; top:4px; z-index:2; padding:2px 4px; font-size:5px; font-weight:950; letter-spacing:.08em; background:rgba(0,0,0,.44); }
+.mini-cost { position:absolute; z-index:2; left:4px; top:4px; width:20px; height:20px; border-radius:50%; display:grid; place-items:center; background:#d9a72c; color:#18150b; border:1px solid #f5d97e; font-size:9px; font-weight:950; }
+.mini-art { height:60px; width:100%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 5px 3px rgba(0,0,0,.35)); }
+.mini-name { font-size:7px; font-weight:950; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center; letter-spacing:.02em; }
+.mini-level { position:absolute; left:4px; bottom:3px; color:#d9c982; font-size:6px; font-weight:950; }
+.collection-head { margin-top:14px; }
+.collection-grid {
+  margin-top:9px; padding-right:3px; flex:1; min-height:0; overflow:auto;
+  display:grid; grid-template-columns:repeat(6,minmax(92px,1fr)); grid-auto-rows:150px; gap:8px;
+  scrollbar-width:thin; scrollbar-color:#5b624f rgba(0,0,0,.15);
+}
+.collection-card { padding:6px; cursor:pointer; transition:transform .15s,filter .15s,border-color .15s; }
+.collection-card::before { content:""; position:absolute; left:0; right:0; top:0; height:3px; background:#91ad68; }
+.collection-card.type-struct::before { background:#d2b05e; }
+.collection-card.type-support::before { background:#8eb9cc; }
+.collection-card:hover { transform:translateY(-3px); border-color:rgba(255,255,255,.24); }
+.collection-card.in-deck { box-shadow:inset 0 0 0 2px rgba(216,190,99,.55); }
+.collection-card.locked { filter:grayscale(.95) brightness(.48); cursor:default; }
+.collection-card.locked::after { content:"LOCKED · GACHA"; position:absolute; left:7px; right:7px; top:52%; padding:4px; text-align:center; background:rgba(7,10,8,.82); color:#d6cba9; font-size:7px; font-weight:950; letter-spacing:.08em; }
+.collection-art { height:76px; width:100%; object-fit:contain; object-position:center bottom; filter:drop-shadow(0 7px 4px rgba(0,0,0,.38)); }
+.collection-info { border-top:1px solid rgba(255,255,255,.07); padding-top:5px; }
+.collection-name { font-size:8px; font-weight:950; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.collection-meta { margin-top:2px; display:flex; justify-content:space-between; color:#aaa18d; font-size:6px; font-weight:800; }
+.collection-progress { margin-top:5px; height:4px; background:rgba(0,0,0,.5); }
+.collection-progress > i { display:block; height:100%; background:linear-gradient(90deg,#a98632,#efd579); }
+.upgrade-btn {
+  width:100%; margin-top:5px; padding:4px; border:1px solid rgba(229,197,103,.35); background:#5c522e; color:#f7e9bd;
+  font-size:6px; font-weight:950; letter-spacing:.08em; cursor:pointer;
+}
+.upgrade-btn:disabled { opacity:.42; cursor:default; }
+
+.shop-panel { padding:20px; display:flex; flex-direction:column; }
+.shop-top p { margin:8px 0 0; color:#aaa28f; font-size:10px; line-height:1.5; }
+.crate-visual { position:relative; min-height:215px; display:grid; place-items:center; margin:10px 0 4px; }
+.crate-glow { position:absolute; width:170px; height:170px; border-radius:50%; background:radial-gradient(circle,rgba(226,187,70,.22),transparent 68%); filter:blur(3px); }
+.crate-box {
+  position:relative; width:145px; height:112px; display:grid; place-items:center; text-align:center;
+  background:linear-gradient(145deg,#626846,#2e372d 64%,#171e19); border:7px solid #222923; outline:2px solid #88753f;
+  box-shadow:inset 0 0 0 3px rgba(221,195,105,.14), 0 20px 35px rgba(0,0,0,.38); transform:perspective(400px) rotateX(4deg) rotateY(-7deg);
+}
+.crate-box::before,.crate-box::after { content:""; position:absolute; background:#202720; }
+.crate-box::before { left:0; right:0; height:15px; top:21px; }.crate-box::after { top:0; bottom:0; width:14px; right:24px; }
+.crate-box span { z-index:2; font-size:26px; color:#e5c766; }.crate-box b { z-index:2; font-size:12px; letter-spacing:.12em; }
+.crate-copy { position:absolute; bottom:2px; color:#807b6d; font-size:8px; font-weight:800; }
+.pull-actions { display:grid; grid-template-columns:1fr 1.15fr; gap:8px; }
+.pull-btn { min-height:64px; padding:8px 9px; border:1px solid rgba(255,255,255,.12); cursor:pointer; color:#f4ead3; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:2px; }
+.pull-btn span { font-size:9px; font-weight:950; letter-spacing:.09em; }.pull-btn b { color:#ffe083; font-size:15px; }.pull-btn small { font-size:6px; color:#c9b975; }
+.pull-btn.secondary { background:linear-gradient(#3d493b,#242d25); }.pull-btn.primary { background:linear-gradient(#776532,#4b4024); border-color:rgba(235,206,111,.38); }
+.pull-btn:hover:not(:disabled) { filter:brightness(1.12); }.pull-btn:disabled { opacity:.42; cursor:not-allowed; }
+.upgrade-rule { margin-top:12px; padding:10px; border-left:3px solid #b79a4b; background:rgba(198,166,73,.08); }
+.upgrade-rule b { color:#dfc870; font-size:8px; letter-spacing:.13em; }.upgrade-rule p { margin:5px 0 0; color:#a9a18e; font-size:8px; line-height:1.5; }.upgrade-rule strong { color:#e7d698; }
+.start-game-btn { margin-top:auto; min-height:68px; border:1px solid #c4a958; background:linear-gradient(180deg,#80703c,#554a2a); color:#fff5d3; cursor:pointer; box-shadow:0 10px 25px rgba(0,0,0,.28); }
+.start-game-btn span,.start-game-btn small { display:block; }.start-game-btn span { font-size:16px; font-weight:1000; letter-spacing:.14em; }.start-game-btn small { margin-top:3px; color:#dbc988; font-size:8px; }.start-game-btn:hover:not(:disabled) { filter:brightness(1.12); }.start-game-btn:disabled { filter:grayscale(.8); opacity:.5; cursor:not-allowed; }
+
+.gacha-modal { position:absolute; z-index:40; inset:0; display:grid; place-items:center; background:rgba(5,8,6,.82); backdrop-filter:blur(7px); }
+.gacha-dialog { width:min(980px,90%); max-height:88%; overflow:auto; padding:18px; border:1px solid rgba(230,199,99,.28); background:linear-gradient(180deg,#202b23,#0d1511); box-shadow:0 30px 80px rgba(0,0,0,.65); }
+.gacha-title { display:flex; justify-content:space-between; align-items:center; color:#e0c56e; font-size:11px; font-weight:950; letter-spacing:.18em; }.gacha-title button { width:30px; height:30px; border:1px solid rgba(255,255,255,.1); background:#1c251e; color:#ddd2b8; cursor:pointer; }
+.gacha-results { margin-top:14px; display:grid; grid-template-columns:repeat(5,1fr); gap:9px; }
+.gacha-result-card { min-height:170px; padding:7px; animation:gachaPop .26s ease both; }.gacha-result-card.new { box-shadow:inset 0 0 0 2px #d6b54f,0 0 25px rgba(217,183,74,.12); }.gacha-result-card img { width:100%; height:105px; object-fit:contain; object-position:center bottom; }.gacha-result-card h4 { margin:3px 0 0; font-size:9px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }.gacha-result-card p { margin:3px 0 0; color:#a9a18e; font-size:7px; }.gacha-result-card strong { color:#e4cc77; }
+.gacha-done { display:block; margin:16px auto 0; min-width:170px; padding:10px 20px; border:1px solid #c5a957; background:#67582f; color:#f9edc6; font-size:10px; font-weight:950; letter-spacing:.12em; cursor:pointer; }
+@keyframes gachaPop { from { opacity:0; transform:translateY(10px) scale(.96); } to { opacity:1; transform:none; } }
+
+.result-reward { margin:12px auto -6px; color:#ffe087; font-size:13px; font-weight:950; letter-spacing:.08em; }
+.result-actions { display:flex; justify-content:center; gap:8px; }.result-secondary { border:1px solid rgba(255,255,255,.14); background:#263028; color:#ddd3bb; padding:12px 23px; font-weight:950; letter-spacing:.1em; cursor:pointer; }
+
+/* Energy now sits below the current hand. */
+#game-shell .card-dock { bottom:58px; }
+#game-shell .energy-pill { bottom:10px; min-width:min(520px,58%); padding:7px 12px; }
+#game-shell .deck-status { bottom:202px; }
+.gameplay-energy-bar .energy-track { height:8px; }
+.gameplay-energy-bar .energy-row b { font-size:17px; }
+
+@media (max-width:1180px) {
+  .home-layout { grid-template-columns:minmax(0,1fr) 300px; gap:12px; }
+  .home-deck,.collection-grid { grid-template-columns:repeat(4,minmax(88px,1fr)); }
+  .collection-grid { grid-auto-rows:145px; }
+  .home-deck { max-height:220px; overflow:auto; }
+}
+@media (max-width:820px) {
+  html,body { overflow:auto; min-height:100%; }
+  #app { min-height:100vh; height:auto; }
+  .home-screen { width:100%; min-height:100vh; height:auto; overflow:visible; }
+  .home-header { align-items:flex-start; }.home-header p { display:none; }.currency-chip { min-width:140px; }
+  .home-layout { height:auto; grid-template-columns:1fr; padding-bottom:20px; }
+  .deck-panel { min-height:660px; }.shop-panel { min-height:540px; }
+  .home-deck,.collection-grid { grid-template-columns:repeat(4,1fr); }
+  .gacha-results { grid-template-columns:repeat(2,1fr); }
+  #game-shell { position:fixed; inset:0; margin:auto; }
+  #game-shell .card-dock { bottom:47px; }
+  #game-shell .energy-pill { bottom:4px; min-width:270px; width:64%; padding:4px 8px; }
+  #game-shell .deck-status { bottom:129px; }
+}
