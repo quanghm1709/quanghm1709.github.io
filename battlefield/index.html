@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="theme-color" content="#0f1714" />
+  <title>Frontline Cards — Playable Prototype</title>
+  <link rel="preload" href="./assets/battlefield.png" as="image" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="app">
+    <section id="game-shell" aria-label="Frontline Cards battlefield">
+      <canvas id="game" width="1536" height="1024"></canvas>
+
+      <header class="hud-top">
+        <div class="base-panel player-panel">
+          <div class="panel-title"><span class="team-dot player"></span>FORWARD BASE</div>
+          <div class="hp-track"><div id="player-hp-fill" class="hp-fill player"></div></div>
+          <div id="player-hp-text" class="hp-text">3000 / 3000</div>
+        </div>
+
+        <div class="match-center">
+          <div id="timer">04:00</div>
+          <div id="phase-label">DEPLOYMENT</div>
+        </div>
+
+        <div class="base-panel enemy-panel">
+          <div class="panel-title">ENEMY BASE<span class="team-dot enemy"></span></div>
+          <div class="hp-track"><div id="enemy-hp-fill" class="hp-fill enemy"></div></div>
+          <div id="enemy-hp-text" class="hp-text">3000 / 3000</div>
+        </div>
+      </header>
+
+      <aside class="controls">
+        <button id="pause-btn" class="icon-btn" title="Tạm dừng">Ⅱ</button>
+        <button id="sound-btn" class="icon-btn" title="Âm thanh">🔊</button>
+      </aside>
+
+      <div id="energy-pill" class="energy-pill">
+        <div class="energy-icon">⚡</div>
+        <div class="energy-copy">
+          <div class="energy-row"><b id="energy-text">5.0</b><span>/ 10</span></div>
+          <div class="energy-track"><div id="energy-fill"></div></div>
+        </div>
+        <div id="regen-label" class="regen-label">+0.5/s</div>
+      </div>
+
+      <div id="tip" class="tip">Hand 4 lá rút ngẫu nhiên từ Deck. Dùng một lá để rút lá kế tiếp • UNIT / STRUCT / SUPPORT</div>
+
+      <div id="deck-status" class="deck-status" aria-label="Deck status"></div>
+      <footer id="card-dock" class="card-dock" aria-label="Battle cards"></footer>
+
+      <div id="drag-card" class="drag-card hidden"></div>
+      <div id="result-screen" class="result-screen hidden">
+        <div class="result-card">
+          <div id="result-kicker" class="result-kicker">BATTLE COMPLETE</div>
+          <h1 id="result-title">VICTORY</h1>
+          <p id="result-subtitle">Enemy base destroyed.</p>
+          <div class="result-stats">
+            <div><span>Damage dealt</span><b id="stat-damage">0</b></div>
+            <div><span>Units deployed</span><b id="stat-units">0</b></div>
+            <div><span>Energy spent</span><b id="stat-energy">0</b></div>
+          </div>
+          <button id="restart-btn">PLAY AGAIN</button>
+        </div>
+      </div>
+
+      <div id="pause-screen" class="pause-screen hidden">
+        <div>
+          <h2>PAUSED</h2>
+          <p>Nhấn nút pause một lần nữa để tiếp tục.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./game.js"></script>
+</body>
+</html>
