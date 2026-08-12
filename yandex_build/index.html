@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tank Shooter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loading screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-content">
+      <h1>Tank Shooter</h1>
+      <div class="loading-spinner"></div>
+      <div class="loading-bar">
+        <div id="loadingProgress" class="loading-progress"></div>
+      </div>
+      <p id="loadingText">Loading game...</p>
+    </div>
+  </div>
+
+  <!-- Game content -->
+  <div id="gameContainer" class="game-container" style="display: none;">
+    <h1>Tank Shooter</h1>
+    <canvas id="tankgame" width="480" height="620"></canvas>
+    <p>Move: Left/Right arrows or A/D &nbsp;|&nbsp; Shoot: Space</p>
+  </div>
+
+  <!-- Yandex Games SDK -->
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+  <script src="game.js"></script>
+</body>
+</html>
