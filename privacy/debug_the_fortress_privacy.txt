@@ -1,1 +1,94 @@
-privacy coming soon!
+PRIVACY POLICY
+DEBUG THE FORTRESS!
+
+Effective date: From October 10, 2026
+Draft last updated: October 10, 2026
+
+1. PUBLISHER AND SCOPE
+
+Queng Game Studio is the publishing name of the individual providing Debug The Fortress! (the “game”, “we”, “us” or “our”). This policy explains how data is processed when you play, view advertisements or contact support.
+Privacy contact: quenggamestudio@gmail.com
+This policy applies to features available in the version you use. External links and content, including advertiser websites and app stores, are subject to their own policies.
+
+2. DATA WE PROCESS
+
+2.1. Progress and settings on your device
+The game stores gameplay progress, levels, resources and in-game currencies, towers, equipment, upgrades, quests, daily check-ins, tutorials, and audio/privacy settings on your device. The current version does not require a separate game account and does not provide progress synchronization through an account on our servers.
+
+Storing progress locally does not mean all data stays on your device: some gameplay events and technical data are sent to analytics or advertising services as described below.
+
+2.2. Usage analytics
+We use Google Analytics for Firebase to understand how the game is used and improve the experience. Events may include app launches, startup duration, starting/ending runs, progression, skill use, upgrades, earning/spending resources, shop interactions, tutorials and rewarded advertisements. Custom events include a gameplay session identifier and game configuration version information.
+
+The SDK may also process an app-instance identifier, device/operating system information, app version, language and general geographic region, depending on service configuration. These identifiers can distinguish app installations; they do not mean the data is fully anonymous.
+
+2.3. Advertising
+The game integrates Google AdMob to provide rewarded advertisements, such as opportunities to earn additional resources or energy. The advertising SDK may collect and share IP addresses, device/advertising identifiers, app/ad interactions and diagnostic information. IP addresses may be used to infer approximate location. This data is used for ad delivery and measurement, analytics, security and fraud prevention. Use of advertising identifiers and personalization depends on the platform, settings, privacy choices and applicable requirements.
+
+2.4. In-app purchases — if offered
+When a released version supports purchases, Google Play or the Apple App Store processes payments. The game may process product identifiers, transaction identifiers, purchase status and receipts to deliver items, restore entitlements and prevent duplicate transactions. When our validation service is used, receipts or signed transaction data, the application identifier and platform may be sent to that service over HTTPS.
+
+We do not directly receive full payment card details through the game's purchase feature. The store's payment and privacy policies also apply. This section applies only when purchases are actually available.
+
+2.5. Support
+If you email us, we receive your email address, message content and any files you voluntarily provide to resolve your request. Please do not send passwords, payment card information or unnecessary identity documents.
+
+3. PURPOSES AND LEGAL BASES
+
+We process data to operate the game and save progress; provide rewards and transactions where available; analyze errors and gameplay experience; display/measure advertisements; prevent fraud; answer support requests; and meet legal obligations.
+
+Where required by law, we rely on consent for the relevant processing activities. Other activities may rely on providing the service you request, legal obligations or appropriate legitimate interests, taking your rights into account. Reading this policy or continuing to play does not replace separate consent where such consent is required.
+
+4. DATA RECIPIENTS
+
+Data may be processed by Google through Firebase/Google Analytics, AdMob and relevant advertising partners; Google Play or the Apple App Store where transactions occur; providers of transaction validation infrastructure when that feature operates; and email providers when you contact support.
+
+We may disclose information where legally required or in response to valid requests to protect rights and safety and prevent fraud. The current version does not publicly display your individual progress profile through social networking or leaderboard features.
+
+Official provider information:
+Google: https://policies.google.com/privacy
+Firebase: https://firebase.google.com/support/privacy
+Google Analytics: https://support.google.com/firebase/answer/6318039
+AdMob — SDK data disclosure: https://developers.google.com/admob/unity/privacy/play-data-disclosure
+Apple: https://www.apple.com/legal/privacy/
+Unity — player privacy information: https://unity.com/legal/game-player-and-app-user-privacy-policy
+
+5. YOUR CHOICES
+
+Analytics: in the game settings, turn off “SHARE GAMEPLAY ANALYTICS” to request that Analytics collection stop. The current configuration enables Analytics by default until you change your choice. Turning off Analytics does not automatically delete previously submitted data or also disable advertising data processing.
+
+Advertising: the game uses Google's User Messaging Platform (UMP) to display privacy forms when required. “AD PRIVACY” appears when the SDK requires privacy options to be provided. You can also manage advertising identifiers and related permissions in your device settings. Non-personalized advertisements may still require data processing for delivery, measurement and fraud prevention.
+
+Viewing rewarded advertisements is your choice. You may skip them; the associated reward may then not be granted. When permitted, the SDK may initialize and preload advertisements before you choose to watch one.
+
+6. DATA RETENTION AND DELETION
+
+Local progress and settings are retained so you can continue playing. You can clear application data using operating system tools where available. Uninstalling usually removes local data, but operating system/store backups may be retained or restored according to your settings. Deleting data may result in lost progress and items; the current version does not have account synchronization to guarantee recovery.
+
+Data already sent to third parties is not automatically deleted when you uninstall the game or turn off Analytics. Retention depends on the data type, service configuration and legal requirements.
+Analytics retention configured by us: [TO COMPLETE: the actual retention period in Google Analytics/Firebase].
+Support correspondence and transaction validation data under our management: [TO COMPLETE: actual retention/deletion periods or criteria; state whether a transaction server is not yet operating].
+
+You may request assistance with data deletion at quenggamestudio@gmail.com. We may need minimal information to identify the data and verify your request. Because there is no separate game account, an email address alone may not be sufficient to link you to an installation's SDK data. Data that must be retained by law, data needed for disputes, or de-identified statistical data may be subject to applicable exceptions.
+
+7. PRIVACY RIGHTS AND INTERNATIONAL TRANSFERS
+
+Depending on where you live and applicable law, you may have rights to request access, correction, deletion, restriction of processing or a copy of your data; object to certain processing; or withdraw consent. Withdrawing consent does not affect the lawfulness of earlier processing. You may also lodge a complaint with a competent data protection authority.
+
+Google, Apple, Unity or support providers may process data outside your country. Where legally required, transfers must use appropriate safeguards. Information about providers' processing locations and safeguards is described in their policies.
+
+8. CHILDREN
+
+We do not require children to provide names, addresses or contact information to play. If a parent or guardian believes a child's data has been processed inappropriately, please contact the email above for assistance. Advertising and analytics involving children must comply with age, consent and child protection configuration requirements applicable in the release markets.
+
+9. SECURITY
+
+We use appropriate measures to limit unauthorized access and processing. Google's advertising SDK protects data in transit using TLS; the game's transaction validation flow, when offered, requires HTTPS. Progress data on your device is subject to operating system protections; this does not mean all local data is encrypted. No storage or transmission method guarantees absolute security.
+
+10. POLICY CHANGES AND CONTACT
+
+We update this policy when features, providers or data processing practices change. Updates state their effective date; material changes are communicated appropriately, and renewed consent is requested where necessary.
+
+Please send privacy questions or requests to:
+Queng Game Studio
+Email: quenggamestudio@gmail.com
